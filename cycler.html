@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <title>WebPage Cycler</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+        
+        
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Audiowide&family=Indie+Flower&display=swap" rel="stylesheet">
+        
+        <style>
+             .flex-container {
+                  display: flex;  flex-direction:row;
+                 background-color:chocolate;
+                             }
+
+        .flex-container > div {  /*div children of the flex container*/
+                 background-color:aqua; 
+                 margin: 5px;  padding: 10px;  font-size: 15px;
+                              }
+
+        /* Responsive layout */
+        @media (max-width: 600px) { 
+	   .flex-container{
+		         flex-direction:column;
+		         background-color: green;
+	                  }
+	        } 
+            h1 {
+               color:brown;
+               font-family:unset;
+               padding: 5px;
+               margin-bottom: 10px;
+			   background-color:darkkhaki;
+			   margin: 0px 230px;
+            }
+            button{
+                margin: 16px;
+            }
+            #inputElement {
+                width: 300px;
+                margin-left: 400px;
+            }
+            .message {
+                font-family:inherit;
+                padding: 5px;
+            }
+            .cycler {
+                color:blueviolet;
+                font-size: 20px;
+            }
+			
+        </style>
+
+    </head>
+
+    <body style="background-color:beige;">
+        <!-- Part 7 -->
+		
+        <div class="container text-center">
+            <h1 style="margin-bottom: 5px;margin-top: 10px;">Udayasri Prasadam builds a cycler</h1>
+            <div class="flex-container" id="target">
+                <div class="cycler">row item 1</div>   
+                <div class="cycler">row item 2</div>  
+                <div class="cycler">row item 3</div>  
+                </div>
+            <label for="inputElement">Type something: </label>
+            <input class="form-control" type="text" name="input" id="inputElement" value="">
+            <p class="message"> 
+                Press the button to create an new element of type div and then add it to the container.
+            </p>
+            <div class="container text-center">
+                <button class="btn btn-dark" type="submit" onclick="makeNewDiv()">Add Value</button>
+                <button class="btn btn-primary" type="submit" onclick="get()">Get</button>
+                <button class="btn btn-dark" type="submit" onclick="spin()">Spin</button>
+                <button class="btn btn-primary" type="submit" onclick="get()">Swap</button>
+               
+            </div>
+        </div>
+	
+        
+
+        
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+        
+        <script>
+            function makeNewDiv() {
+                let element = document.createElement("div")
+                let value = document.getElementById("inputElement").value
+
+                element.innerHTML = value
+                element.className = "cycler"
+
+                let container = document.getElementById("target")
+                container.appendChild(element)
+            }
+
+            
+            function get() {
+                let cyclerItems = document.getElementsByClassName("cycler")
+                if(cyclerItems.length > 0) {
+                    cyclerItems[cyclerItems.length-1].remove()
+                }
+            }
+
+            function spin() {
+                let cyclerItems = document.getElementsByClassName("cycler")
+                if(cyclerItems.length > 1) {
+                    removedItem = cyclerItems[cyclerItems.length-1]
+                    cyclerItems[cyclerItems.length-1].remove()
+                    let container = document.getElementById("target")
+                    container.insertBefore(removedItem, container.firstChild)
+                }
+            }
+
+            function swap() {
+                let cyclerItems = document.getElementsByClassName("cycler")
+                let container = document.getElementById("target")
+                let a = Math.floor(Math.random() * cyclerItems.length)
+                let b = Math.floor(Math.random() * cyclerItems.length)
+                let firstInnerText = document.getElementsByClassName("cycler")[a]
+                let secondInnerText = document.getElementsByClassName("cycler")[b]
+                if(cyclerItems.length > 1) {
+                    let temp = firstInnerText.innerHTML
+                    firstInnerText.innerHTML = secondInnerText.innerHTML
+                    secondInnerText.innerHTML = temp
+                }
+            }
+
+           
+        </script>
+
+    </body>
+
+</html>
